@@ -1,26 +1,30 @@
 import java.io.*;
+import java.util.ArrayList;
 
 public class CSVReader {
 
     public static void main(String[] args) {
 
-        String path = "C:\\Users\\gabal\\OneDrive\\Área de Trabalho\\GABRIEL\\FATEC\\BD\\2 SEM\\JavaRead\\Materials\\test.csv";
+        String path = "C:\\Users\\gabal\\OneDrive\\Área de Trabalho\\GABRIEL\\FATEC\\BD\\2 SEM\\csv-reader\\JavaRead\\Materials\\test.csv";
         String line = "";
 
         try{
+            ArrayList<Person> people = new ArrayList<>();
+            CSV csv = new CSV(people);
             BufferedReader br = new BufferedReader((new FileReader(path)));
             int i=0;
 
-            while((line = br.readLine()) != null ) {
-                String var = "person" + i;
-                String[] values = line.split(";");
-                System.out.println("Data: "+ values[0]+", Hora: "+ values[1], );
-//                Person var  = new Person(values[0], values[1]);
-                Person person  = new Person(values[0], values[1]);
-                System.out.println(person.getName());
-                i++;
-            }
 
+            while((line = br.readLine()) != null ) {
+                String[] values = line.split(";");
+                System.out.println("Nome: "+ values[0]+", Idade: "+ values[1]);
+                Person person  = new Person(values[0], values[1]);
+                csv.adicionarElemento(person);
+            }
+            br.close();
+            for (i=0; i<people.size(); i++) {
+                System.out.println(people.get(i).getName());
+            }
 
 
 
